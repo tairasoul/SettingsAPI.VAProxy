@@ -35,11 +35,12 @@ namespace SettingsAPI
         /// <summary>
         /// Register a mod.
         /// </summary>
-        /// <param name="ModId"></param> Id of mod.
-        /// <param name="display"></param> Text to display to user on mod's button.
-        /// <param name="options"></param> Options the mod has.
+        /// <param name="ModId">Id of mod.</param> 
+        /// <param name="display">Text to display to user on mod's button.</param> 
+        /// <param name="options">Options the mod has.</param> 
+        /// <param name="InitialCreateCallback">Callback used to setup everything needed for the page. Called with the GameObject of the mod page assigned to this mod.</param>
 
-        public void RegisterMod(string ModId, string display, Option[] options)
+        public void RegisterMod(string ModId, string display, Option[] options, Action<GameObject> InitialCreateCallback)
         {
             RawMod mod = new()
             {
@@ -69,6 +70,7 @@ namespace SettingsAPI
                 ModSetting.Find("ItemName").GetComponent<RectTransform>().anchoredPosition = new Vector2(31.5272f, -1.4878f);
                 ModSetting.name = mod.ModId;
                 GameObject ModSettingPage = Settings.AddObject(mod.ModId);
+                mod.Create(ModSettingPage);
                 foreach(Option option in mod.options)
                 {
                     option.Create(ModSettingPage);
@@ -119,5 +121,9 @@ namespace SettingsAPI
         /// Options the mod has.
         /// </summary>
         public Option[] options;
+        /// <summary>
+        /// Called to create the mod setting page's needed components.
+        /// </summary>
+        public Action<GameObject> Create;
     }
 }
