@@ -1,6 +1,6 @@
 # SettingsAPI
 
-A settings API for VA Proxy.
+A mod settings API for VA Proxy.
 
 In progress.
 
