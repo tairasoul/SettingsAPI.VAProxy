@@ -93,7 +93,6 @@ namespace SettingsAPI
     internal class Mods
     {
         public static RawMod[] rawMods = [];
-        public static Mod[] registeredMods = [];
     }
 
     internal struct RawMod
@@ -101,11 +100,5 @@ namespace SettingsAPI
         public string ModId;
         public string display;
         public Option[] options;
-    }
-
-    internal struct Mod
-    {
-        public Option[] options;
-        public GameObject reference;
     }
 }
