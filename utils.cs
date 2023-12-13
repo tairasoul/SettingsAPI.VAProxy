@@ -50,7 +50,7 @@ namespace SettingsAPI
         }
     }
 
-    internal class ComponentUtils
+    public class ComponentUtils
     {
         public static GameObject CreateToggle(string display, string id)
         {
