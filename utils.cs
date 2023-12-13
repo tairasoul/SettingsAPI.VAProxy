@@ -52,7 +52,7 @@ namespace SettingsAPI
 
     internal class ComponentUtils
     {
-        public GameObject CreateToggle(string display, string id)
+        public static GameObject CreateToggle(string display, string id)
         {
             GameObject Toggle = new(id);
             Toggle.AddComponent<RectTransform>().anchoredPosition = new Vector2(-449.6534f, 158.6981f);
@@ -86,7 +86,7 @@ namespace SettingsAPI
             return Toggle;
         }
 
-        public GameObject CreateButton(string display, string id)
+        public static GameObject CreateButton(string display, string id)
         {
             GameObject Settings = GameObject.Find("MAINMENU/Canvas/Pages/Setting");
             GameObject Container = Settings.Find("Content/GameObject");
@@ -99,7 +99,7 @@ namespace SettingsAPI
             return Button;
         }
 
-        public GameObject CreateSlider(string display, string id)
+        public static GameObject CreateSlider(string display, string id)
         {
             GameObject Settings = GameObject.Find("MAINMENU/Canvas/Pages/Setting");
             GameObject Sensitivity = Settings.Find("AUDIO/SFX");
