@@ -32,6 +32,13 @@ namespace SettingsAPI
             };
         }
 
+        /// <summary>
+        /// Register a mod.
+        /// </summary>
+        /// <param name="ModId"></param> Id of mod.
+        /// <param name="display"></param> Text to display to user on mod's button.
+        /// <param name="options"></param> Options the mod has.
+
         public void RegisterMod(string ModId, string display, Option[] options)
         {
             RawMod mod = new()
@@ -61,9 +68,10 @@ namespace SettingsAPI
                 ModSetting.Find("ItemName").GetComponent<Text>().text = mod.display;
                 ModSetting.Find("ItemName").GetComponent<RectTransform>().anchoredPosition = new Vector2(31.5272f, -1.4878f);
                 ModSetting.name = mod.ModId;
+                GameObject ModSettingPage = Settings.AddObject(mod.ModId);
                 foreach(Option option in mod.options)
                 {
-                    option.Create();
+                    option.Create(ModSettingPage);
                 }
             }
         }
@@ -85,9 +93,11 @@ namespace SettingsAPI
 
     public struct Option
     {
-        public string name;
-        public string type;
-        public Action Create;
+        /// <summary>
+        /// The function that creates this option.
+        /// Gets the page created for it passed in as an argument.
+        /// </summary>
+        public Action<GameObject> Create;
     }
 
     internal class Mods
@@ -97,8 +107,17 @@ namespace SettingsAPI
 
     internal struct RawMod
     {
+        /// <summary>
+        /// Id of the mod used for the name of the game object.
+        /// </summary>
         public string ModId;
+        /// <summary>
+        /// Name displayed to user on mod button.
+        /// </summary>
         public string display;
+        /// <summary>
+        /// Options the mod has.
+        /// </summary>
         public Option[] options;
     }
 }
