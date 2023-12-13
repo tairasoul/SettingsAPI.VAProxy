@@ -2,7 +2,6 @@
 using HarmonyLib;
 using moveen.utils;
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -82,21 +81,20 @@ namespace SettingsAPI
             GameObject AudioPage = Settings.Find("AUDIO");
             GameObject Container = Settings.Find("Content/GameObject");
             GameObject ScrollbarVertical = GameObject.Find("MAINMENU/Canvas/Pages/Inventory/Content/__INVENTORY_CONTAINER/Container/InventorySlots/Scrollbar Vertical");
-            GameObject ScrollVertical = GameObject.Instantiate(ScrollbarVertical);
+            GameObject ScrollVertical = ScrollbarVertical.Instantiate();
             ScrollVertical.name = "Scrollbar Vertical";
             GameObject Audio = Container.Find("audio");
             SetupButton(Audio.GetComponent<Button>());
             SetupButton(Container.Find("controls").GetComponent<Button>());
             SetupButton(Container.Find("resolution").GetComponent<Button>());
-            GameObject ModSettings = GameObject.Instantiate(Audio);
+            GameObject ModSettings = Audio.Instantiate();
             ModSettings.SetParent(Container, false);
             ModSettings.name = "ModSettings";
             ModSettings.GetComponent<RectTransform>().anchoredPosition = new Vector2(-0.0005f, -170.8331f);
-            //ModSettings.transform.SetPositionAndRotation(new Vector3(Audio.transform.position.x, Audio.transform.position.y - 25, Audio.transform.position.z), new Quaternion());
             GameObject ItemName = ModSettings.Find("ItemName");
             Text text = ItemName.GetComponent<Text>();
             text.text = "Mod Settings";
-            GameObject ModPage = GameObject.Instantiate(AudioPage);
+            GameObject ModPage = AudioPage.Instantiate();
             ModPage.name = "ModSettingsPage";
             ModPage.SetParent(Settings, false);
             ModPage.removeAllChildrenImmediate(false);
@@ -131,48 +129,7 @@ namespace SettingsAPI
             group.startCorner = GridLayoutGroup.Corner.UpperLeft;
             group.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
             group.constraintCount = 5;
-            //Exit.transform.SetPositionAndRotation(new Vector3(Exit.transform.position.x, Exit.transform.position.y - 25, Exit.transform.position.z), new Quaternion());
             return ModSettings;
-            /*GameObject SettingsButton = new GameObject("ModSettings");
-            SettingsButton.layer = LayerMask.NameToLayer("UI");
-            RectTransform transform = SettingsButton.AddComponent<RectTransform>();
-            transform.anchorMax = new Vector2(1, 1);
-            transform.anchorMin = new Vector2(0, 0);
-            transform.offsetMax = new Vector2(70.4986f, -252.9987f);
-            transform.offsetMin = new Vector2(-70.5014f, -202.9987f);
-            transform.sizeDelta = new Vector2(141, -50);*/
-            //transform.anchoredPosition = new Vector2(-0.0005f, -170.8797f);
-            /*transform.position = new Vector3(1079.926f, 460.4991f, -1709);
-            SettingsButton.AddComponent<CanvasRenderer>();
-            Image image = SettingsButton.AddComponent<Image>();
-            image.type = Image.Type.Simple;
-            image.color = new Color(1, 1, 1, 0.0588f);
-            SettingsButton.AddComponent<LayoutElement>();
-            SettingsButton.AddComponent<Button>();
-            GameObject itemName = new GameObject("ItemName");
-            RectTransform item = itemName.AddComponent<RectTransform>();
-            itemName.AddComponent<CanvasRenderer>();
-            itemName.transform.SetParent(SettingsButton.transform);
-            //item.anchoredPosition = new Vector2(64.9991f, 0);
-            Text text = itemName.AddComponent<Text>();
-            text.text = "Mod Settings";
-            item.position = new Vector3(1055.512f, 460.4991f, -1709);*/
-            /*updateActions = updateActions.Add(() =>
-            {
-                //transform.anchoredPosition = new Vector2(-0.0005f, -170.8797f);
-                transform.position = new Vector3(1079.926f, 460.4991f, -1709);
-                transform.anchorMax = new Vector2(1, 1);
-                transform.anchorMin = new Vector2(0, 0);
-                transform.offsetMax = new Vector2(70.4986f, -252.9987f);
-                transform.offsetMin = new Vector2(-70.5014f, -202.9987f);
-                transform.sizeDelta = new Vector2(141, -50);
-                //transform.localPosition = new Vector3(1079.926f, 460.4991f, -1709);
-                transform.localScale = new Vector3(1, 1, 1);
-                //item.anchoredPosition = new Vector2(64.9991f, 0);
-                item.position = new Vector3(1055.512f, 460.4991f, -1709);
-                //item.localPosition = new Vector3(1055.512f, 460.4991f, -1709);
-            });
-            return SettingsButton;*/
         }
 
         public static void SetupSettingsButton(GameObject SettingsButton)
