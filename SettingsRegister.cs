@@ -46,7 +46,8 @@ namespace SettingsAPI
             {
                 ModId = ModId,
                 display = display,
-                options = options
+                options = options,
+                Create = InitialCreateCallback
             };
             Mods.rawMods = Mods.rawMods.Append(mod);
         }
