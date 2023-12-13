@@ -1,0 +1,111 @@
+﻿using System;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+namespace SettingsAPI
+{
+    public class SettingsRegister : MonoBehaviour
+    {
+        internal bool MenuLoaded = false;
+        internal bool NeedCreateMods = false;
+        internal Scene currentScene = SceneManager.GetActiveScene();
+        public void Awake()
+        {
+            SceneManager.activeSceneChanged += (Scene old, Scene newS) =>
+            {
+                currentScene = newS;
+                if (newS.name == "Menu")
+                {
+                    MenuLoaded = true;
+                    NeedCreateMods = true;
+                    SettingsUtils.updateActions = new Action[] { };
+                }
+                if (newS.name != "Menu" && MenuLoaded)
+                {
+                    Plugin.Log.LogInfo("Creating and setting up ModSettings button.");
+                    GameObject Button = SettingsUtils.CreateSettingsButton();
+                    SettingsUtils.SetupSettingsButton(Button);
+                    GameObject Settings = GameObject.Find("MAINMENU/Canvas/Pages/Setting");
+                    Settings.Find("ModSettingsPage").SetActive(false);
+                }
+            };
+        }
+
+        public void RegisterMod(string ModId, string display, Option[] options)
+        {
+            RawMod mod = new()
+            {
+                ModId = ModId,
+                display = display,
+                options = options
+            };
+            Mods.rawMods = Mods.rawMods.Append(mod);
+        }
+
+        private void CreateMods()
+        {
+            GameObject Settings = GameObject.Find("MAINMENU/Canvas/Pages/Setting");
+            Settings.Find("ModSettingsPage").SetActive(false);
+            foreach (RawMod mod in Mods.rawMods)
+            {
+                GameObject ModSettings = Settings.Find("Content/GameObject/ModSettings");
+                GameObject ModSetting = ModSettings.Instantiate();
+                GameObject Viewport = Settings.Find("ModSettingsPage/Viewport/Content");
+                ModSetting.SetParent(Viewport, false);
+                LayoutElement element = ModSetting.AddComponent<LayoutElement>();
+                element.preferredHeight = 10f;
+                element.preferredWidth = 50f;
+                element.ignoreLayout = false;
+                element.layoutPriority = 1;
+                ModSetting.Find("ItemName").GetComponent<Text>().text = mod.display;
+                ModSetting.Find("ItemName").GetComponent<RectTransform>().anchoredPosition = new Vector2(31.5272f, -1.4878f);
+                ModSetting.name = mod.ModId;
+                foreach(Option option in mod.options)
+                {
+                    option.Create();
+                }
+            }
+        }
+
+        public void Update()
+        {
+            foreach (Action action in SettingsUtils.updateActions)
+            {
+                action.Invoke();
+            }
+            GameObject Settings = GameObject.Find("MAINMENU/Canvas/Pages/Setting");
+            if (NeedCreateMods && currentScene.name != "Intro" && currentScene.name != "Menu" && Settings != null && Settings.Find("ModSettingsPage") != null && Settings.Find("ModSettingsPage/Viewport/Content") != null)
+            {
+                NeedCreateMods = false;
+                CreateMods();
+            }
+        }
+    }
+
+    public struct Option
+    {
+        public string name;
+        public string type;
+        public Action Create;
+    }
+
+    internal class Mods
+    {
+        public static RawMod[] rawMods = [];
+        public static Mod[] registeredMods = [];
+    }
+
+    internal struct RawMod
+    {
+        public string ModId;
+        public string display;
+        public Option[] options;
+    }
+
+    internal struct Mod
+    {
+        public Option[] options;
+        public GameObject reference;
+    }
+}
