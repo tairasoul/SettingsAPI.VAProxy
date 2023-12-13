@@ -38,7 +38,6 @@ namespace SettingsAPI
                 RegisteredSettingsButton = new GameObject("ModSettingsAPI");
                 DontDestroyOnLoad(RegisteredSettingsButton);
                 API = RegisteredSettingsButton.AddComponent<SettingsRegister>();
-                API.RegisterMod("tairasoul.test", "test", []);
                 Log.LogInfo("ModSettingsAPI setup. Have fun!");
             }
         }

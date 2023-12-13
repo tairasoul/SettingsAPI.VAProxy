@@ -62,7 +62,7 @@ namespace SettingsAPI
                 GameObject ModSetting = ModSettings.Instantiate();
                 GameObject Viewport = Settings.Find("ModSettingsPage/Viewport/Content");
                 ModSetting.SetParent(Viewport, false);
-                LayoutElement element = ModSetting.AddComponent<LayoutElement>();
+                LayoutElement element = ModSetting.GetComponent<LayoutElement>();
                 element.preferredHeight = 10f;
                 element.preferredWidth = 50f;
                 element.ignoreLayout = false;
@@ -70,9 +70,23 @@ namespace SettingsAPI
                 ModSetting.Find("ItemName").GetComponent<Text>().text = mod.display;
                 ModSetting.Find("ItemName").GetComponent<RectTransform>().anchoredPosition = new Vector2(31.5272f, -1.4878f);
                 ModSetting.name = mod.ModId;
+                Button button = ModSetting.GetComponent<Button>();
                 GameObject ModSettingPage = Settings.AddObject(mod.ModId);
                 mod.Create(ModSettingPage);
-                foreach(Option option in mod.options)
+                button.onClick.RemoveAllListeners();
+                button.onClick.AddListener(() =>
+                {
+                    GameObject[] children = Settings.GetChildren();
+                    foreach (GameObject child in children)
+                    {
+                        if (child.name != "Header" && child.name != "Content" && child.name != mod.ModId)
+                        {
+                            child.SetActive(false);
+                        }
+                    }
+                    ModSettingPage.SetActive(true);
+                });
+                foreach (Option option in mod.options)
                 {
                     option.Create(ModSettingPage);
                 }
