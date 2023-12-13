@@ -10,7 +10,7 @@ namespace SettingsAPI
         internal bool MenuLoaded = false;
         internal bool NeedCreateMods = false;
         internal Scene currentScene = SceneManager.GetActiveScene();
-        public void Awake()
+        private void Awake()
         {
             SceneManager.activeSceneChanged += (Scene old, Scene newS) =>
             {
@@ -79,7 +79,7 @@ namespace SettingsAPI
             }
         }
 
-        public void Update()
+        private void Update()
         {
             foreach (Action action in SettingsUtils.updateActions)
             {
