@@ -77,6 +77,10 @@ namespace SettingsAPI
             Setting.OnShow += () =>
             {
                 Settings.Find("ModSettingsPage").SetActive(false);
+                foreach (RawMod mod in Mods.rawMods)
+                {
+                    Settings.Find(mod.ModId)?.SetActive(false);
+                }
             };
             GameObject AudioPage = Settings.Find("AUDIO");
             GameObject Container = Settings.Find("Content/GameObject");
