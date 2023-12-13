@@ -55,12 +55,12 @@ namespace SettingsAPI
         public static GameObject CreateToggle(string display, string id)
         {
             GameObject Toggle = new(id);
-            Toggle.AddComponent<RectTransform>().anchoredPosition = new Vector2(-449.6534f, 158.6981f);
+            Toggle.AddComponent<RectTransform>();
             Toggle.transform.localScale = new Vector3(2.1268f, 2.1268f, 2.1268f);
             Toggle toggle = Toggle.AddComponent<Toggle>();
             GameObject Label = Toggle.AddObject("Label");
             Label.AddComponent<CanvasRenderer>();
-            Label.AddComponent<RectTransform>().anchoredPosition = new Vector2(52.16f, -1);
+            Label.AddComponent<RectTransform>();
             Label.transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
             Text text = Label.AddComponent<Text>();
             text.alignment = TextAnchor.MiddleLeft;
