@@ -52,6 +52,26 @@ namespace SettingsAPI
             Mods.rawMods = Mods.rawMods.Append(mod);
         }
 
+        /// <summary>
+        /// Register a mod.
+        /// </summary>
+        /// <param name="ModId">Id of mod.</param> 
+        /// <param name="display">Text to display to user on mod's button.</param> 
+        /// <param name="options">Options the mod has.</param> 
+
+        public void RegisterMod(string ModId, string display, Option[] options)
+        {
+            RawMod mod = new()
+            {
+                ModId = ModId,
+                display = display,
+                options = options,
+                Create = (GameObject none) => { }
+            };
+            Mods.rawMods = Mods.rawMods.Append(mod);
+        }
+
+
         private void CreateMods()
         {
             GameObject Settings = GameObject.Find("MAINMENU/Canvas/Pages/Setting");
@@ -63,15 +83,17 @@ namespace SettingsAPI
                 GameObject Viewport = Settings.Find("ModSettingsPage/Viewport/Content");
                 ModSetting.SetParent(Viewport, false);
                 LayoutElement element = ModSetting.GetComponent<LayoutElement>();
-                element.preferredHeight = 10f;
-                element.preferredWidth = 50f;
+                element.preferredHeight = 30f;
+                element.minWidth = 300f;
                 element.ignoreLayout = false;
                 element.layoutPriority = 1;
+                ModSetting.Find("ItemName").GetComponent<Text>().resizeTextForBestFit = true;
                 ModSetting.Find("ItemName").GetComponent<Text>().text = mod.display;
                 ModSetting.Find("ItemName").GetComponent<RectTransform>().anchoredPosition = new Vector2(31.5272f, -1.4878f);
                 ModSetting.name = mod.ModId;
                 Button button = ModSetting.GetComponent<Button>();
                 GameObject ModSettingPage = Settings.AddObject(mod.ModId);
+                ModSettingPage.AddComponent<RectTransform>().anchoredPosition = new Vector2(0, 100);
                 mod.Create(ModSettingPage);
                 button.onClick.RemoveAllListeners();
                 button.onClick.AddListener(() =>

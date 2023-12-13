@@ -119,16 +119,21 @@ namespace SettingsAPI
             GameObject Viewport = new("Viewport");
             Viewport.SetParent(ModPage, false);
             GameObject Content = Viewport.AddObject("Content");
-            Content.AddComponent<RectTransform>().anchoredPosition = new Vector2(-292.5862f, 108.9978f);
+            Content.AddComponent<RectTransform>().anchoredPosition = new Vector2(-309.7879f, 132.4231f);
             ContentSizeFitter SizeFitter = Content.AddComponent<ContentSizeFitter>();
             SizeFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
             SizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-            GridLayoutGroup group = Content.AddComponent<GridLayoutGroup>();
-            group.spacing = new Vector2(10, 10);
+            VerticalLayoutGroup group = Content.AddComponent<VerticalLayoutGroup>();
+            group.childControlHeight = true;
+            group.childControlWidth = true;
+            group.childAlignment = TextAnchor.UpperLeft;
+            group.spacing = 25f;
+            /*group.spacing = new Vector2(10, 10);
+            group.cellSize = new Vector2(50, 20);
             group.startAxis = GridLayoutGroup.Axis.Horizontal;
             group.startCorner = GridLayoutGroup.Corner.UpperLeft;
             group.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-            group.constraintCount = 5;
+            group.constraintCount = 5;*/
             return ModSettings;
         }
 
