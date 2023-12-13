@@ -49,13 +49,73 @@ namespace SettingsAPI
             return children;
         }
     }
+
+    internal class ComponentUtils
+    {
+        public GameObject CreateToggle(string display, string id)
+        {
+            GameObject Toggle = new(id);
+            Toggle.AddComponent<RectTransform>().anchoredPosition = new Vector2(-449.6534f, 158.6981f);
+            Toggle.transform.localScale = new Vector3(2.1268f, 2.1268f, 2.1268f);
+            Toggle toggle = Toggle.AddComponent<Toggle>();
+            GameObject Label = Toggle.AddObject("Label");
+            Label.AddComponent<CanvasRenderer>();
+            Label.AddComponent<RectTransform>().anchoredPosition = new Vector2(52.16f, -1);
+            Label.transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
+            Text text = Label.AddComponent<Text>();
+            text.alignment = TextAnchor.MiddleLeft;
+            text.fontSize = 100;
+            GameObject original = GameObject.Find("MAINMENU/Canvas/Pages/Setting/Resolution/VSync/Background");
+            text.font = original.transform.parent.gameObject.Find("Label").GetComponent<Text>().font;
+            text.text = display;
+            text.horizontalOverflow = HorizontalWrapMode.Overflow;
+            text.color = new Color(0.9843f, 0.6902f, 0.2314f);
+            GameObject background = Toggle.AddObject("Background");
+            background.AddComponent<RectTransform>().anchoredPosition = new Vector2(10, 0);
+            background.AddComponent<CanvasRenderer>();
+            background.transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
+            Image image = background.AddComponent<Image>();
+            image.sprite = original.GetComponent<Image>().sprite;
+            GameObject checkmark = background.AddObject("Checkmark");
+            checkmark.AddComponent<RectTransform>();
+            checkmark.AddComponent<CanvasRenderer>();
+            Image checkmarkImage = checkmark.AddComponent<Image>();
+            checkmarkImage.enabled = false;
+            toggle.image = checkmarkImage;
+            checkmarkImage.sprite = original.Find("Checkmark").GetComponent<Image>().sprite;
+            return Toggle;
+        }
+
+        public GameObject CreateButton(string display, string id)
+        {
+            GameObject Settings = GameObject.Find("MAINMENU/Canvas/Pages/Setting");
+            GameObject Container = Settings.Find("Content/GameObject");
+            GameObject Audio = Container.Find("audio");
+            GameObject Button = Audio.Instantiate();
+            Button.name = id;
+            GameObject ItemName = Button.Find("ItemName");
+            Text text = ItemName.GetComponent<Text>();
+            text.text = display;
+            return Button;
+        }
+
+        public GameObject CreateSlider(string display, string id)
+        {
+            GameObject Settings = GameObject.Find("MAINMENU/Canvas/Pages/Setting");
+            GameObject Sensitivity = Settings.Find("AUDIO/SFX");
+            GameObject Slider = Sensitivity.Instantiate();
+            Slider.name = id;
+            Slider.GetComponent<Text>().text = display;
+            return Slider;
+        }
+    }
     internal class SettingsUtils
     {
-        public static GameObject ModSettingsMiniPage;
+        internal static GameObject ModSettingsMiniPage;
 
-        public static Action[] updateActions = { };
+        internal static Action[] updateActions = { };
 
-        public static void SetupButton(Button button)
+        internal static void SetupButton(Button button)
         {
             button.onClick.AddListener(() =>
             {
@@ -70,7 +130,7 @@ namespace SettingsAPI
                 }
             });
         }
-        public static GameObject CreateSettingsButton()
+        internal static GameObject CreateSettingsButton()
         {
             GameObject Settings = GameObject.Find("MAINMENU/Canvas/Pages/Setting");
             UIWindowPage Setting = Settings.GetComponent<UIWindowPage>();
@@ -141,7 +201,7 @@ namespace SettingsAPI
             return ModSettings;
         }
 
-        public static void SetupSettingsButton(GameObject SettingsButton)
+        internal static void SetupSettingsButton(GameObject SettingsButton)
         {
             Button button = SettingsButton.GetComponent<Button>();
             GameObject Settings = GameObject.Find("MAINMENU/Canvas/Pages/Setting");
