@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SettingsAPI
 {
-    [BepInPlugin("tairasoul.settingsapi.vaproxy", "SettingsAPI", "1.0.0")]
+    [BepInPlugin("tairasoul.settingsapi.vaproxy", "SettingsAPI", "1.1.0")]
     public class Plugin : BaseUnityPlugin
     {
         public static ManualLogSource Log;
