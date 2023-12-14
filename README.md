@@ -50,3 +50,7 @@ You'll have to parent it and setup different events.
 CreateToggle will automatically enable/disable the checkmark depending on status of the toggle.
 
 If a part of the setup for the functions is not to your liking, you can modify it after creation.
+
+## Example mods
+
+Some examples are [StationTeleport](https://github.com/tairasoul/VAProxy-StationTeleport) and [HitboxVisualiser](https://github.com/tairasoul/VAProxy-HitboxVisualiser).
