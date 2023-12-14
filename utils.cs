@@ -112,6 +112,7 @@ namespace SettingsAPI
             Button.AddComponent<CanvasRenderer>();
             Image img = Button.AddComponent<Image>();
             img.type = Image.Type.Simple;
+            img.color = new Color(1, 1, 1, 0.0588f);
             Button.AddComponent<LayoutElement>();
             Button button = Button.AddComponent<Button>();
             button.image = img;
