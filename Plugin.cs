@@ -15,6 +15,8 @@ namespace SettingsAPI
 
         public static GameObject RegisteredSettingsButton;
 
+        public static AssetBundle SpriteAssets;
+
         public void Awake()
         {
             Log = Logger;
@@ -34,6 +36,7 @@ namespace SettingsAPI
         {
             if (!init)
             {
+                SpriteAssets = AssetBundle.LoadFromFile($"{Paths.PluginPath}/SettingsAPI/component.sprites");
                 init = true;
                 RegisteredSettingsButton = new GameObject("ModSettingsAPI");
                 DontDestroyOnLoad(RegisteredSettingsButton);
