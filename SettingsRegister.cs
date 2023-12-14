@@ -19,7 +19,6 @@ namespace SettingsAPI
                 {
                     MenuLoaded = true;
                     NeedCreateMods = true;
-                    SettingsUtils.updateActions = new Action[] { };
                 }
                 if (newS.name != "Menu" && MenuLoaded)
                 {
@@ -106,6 +105,7 @@ namespace SettingsAPI
                             child.SetActive(false);
                         }
                     }
+                    SettingsUtils.PageHeader.GetComponent<Text>().text = mod.display;
                     ModSettingPage.SetActive(true);
                 });
                 foreach (Option option in mod.options)
@@ -117,10 +117,6 @@ namespace SettingsAPI
 
         private void Update()
         {
-            foreach (Action action in SettingsUtils.updateActions)
-            {
-                action.Invoke();
-            }
             GameObject Settings = GameObject.Find("MAINMENU/Canvas/Pages/Setting");
             if (NeedCreateMods && currentScene.name != "Intro" && currentScene.name != "Menu" && Settings != null && Settings.Find("ModSettingsPage") != null && Settings.Find("ModSettingsPage/Viewport/Content") != null)
             {

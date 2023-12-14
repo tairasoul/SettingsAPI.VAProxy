@@ -8,6 +8,7 @@ using System.Drawing;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
+using System.Linq;
 
 namespace SettingsAPI
 {
@@ -62,7 +63,7 @@ namespace SettingsAPI
         public static Font GetFont(string name)
         {
             Object[] fonts = Object.FindObjectsOfTypeAll(typeof(Font));
-            foreach (Font font in fonts)
+            foreach (Font font in fonts.Cast<Font>())
             {
                 if (font.name == name) return font;
             }
@@ -219,10 +220,6 @@ namespace SettingsAPI
     }
     internal class SettingsUtils
     {
-        internal static GameObject ModSettingsMiniPage;
-
-        internal static Action[] updateActions = { };
-
         internal static void SetupButton(Button button)
         {
             button.onClick.AddListener(() =>
@@ -235,9 +232,16 @@ namespace SettingsAPI
                     {
                         child.SetActive(false);
                     }
+                    else if (child.name.ToLower() == button.name.ToLower())
+                    {
+                        PageHeader.GetComponent<Text>().text = button.gameObject.Find("ItemName").GetComponent<Text>().text;
+                    }
                 }
             });
         }
+
+        internal static GameObject PageHeader;
+
         internal static GameObject CreateSettingsButton()
         {
             GameObject Settings = GameObject.Find("MAINMENU/Canvas/Pages/Setting");
@@ -326,6 +330,14 @@ namespace SettingsAPI
             group.startAxis = GridLayoutGroup.Axis.Horizontal;
             group.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
             group.constraintCount = 2;
+            GameObject TitleHeader = GameObject.Find("MAINMENU/Canvas/Pages/Setting/Header/Title");
+            PageHeader = TitleHeader.Instantiate();
+            PageHeader.name = "PageHeader";
+            PageHeader.removeAllChildrenImmediate(false);
+            PageHeader.GetComponent<RectTransform>().anchoredPosition = new Vector2(743.7789f, -72.7667f);
+            PageHeader.GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
+            PageHeader.GetComponent<Text>().text = "Controls";
+            PageHeader.SetParent(TitleHeader.transform.parent.gameObject, false);
             /*group.spacing = new Vector2(10, 10);
             group.cellSize = new Vector2(50, 20);
             group.startAxis = GridLayoutGroup.Axis.Horizontal;
@@ -351,6 +363,7 @@ namespace SettingsAPI
                     }
                 }
                 Settings.Find("ModSettingsPage").SetActive(true);
+                PageHeader.GetComponent<Text>().text = "Mod Settings";
             });
         }
     }
