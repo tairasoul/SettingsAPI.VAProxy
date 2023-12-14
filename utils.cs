@@ -55,6 +55,10 @@ namespace SettingsAPI
     }
     public class ComponentUtils
     {
+        /// <summary>
+        /// Get a font within the game.
+        /// </summary>
+        /// <param name="name">Name of font as shown in UnityExplorer.</param>
         public static Font GetFont(string name)
         {
             Object[] fonts = Object.FindObjectsOfTypeAll(typeof(Font));
@@ -64,6 +68,12 @@ namespace SettingsAPI
             }
             return null;
         }
+
+        /// <summary>
+        /// Create a toggle element.
+        /// </summary>
+        /// <param name="display">The text displayed to the user.</param>
+        /// <param name="id">The name to give the toggle object.</param>
         public static GameObject CreateToggle(string display, string id)
         {
             GameObject Toggle = new(id);
@@ -105,6 +115,12 @@ namespace SettingsAPI
             return Toggle;
         }
 
+        /// <summary>
+        /// Create a button element.
+        /// </summary>
+        /// <param name="display">The text displayed to the user.</param>
+        /// <param name="id">The name to give the button object.</param>
+
         public static GameObject CreateButton(string display, string id)
         {
             GameObject Button = new(id);
@@ -140,6 +156,12 @@ namespace SettingsAPI
             text.text = display;*/
             return Button;
         }
+
+        /// <summary>
+        /// Create a slider element.
+        /// </summary>
+        /// <param name="display">The text displayed to the user.</param>
+        /// <param name="id">The name to give the slider object.</param>
 
         public static GameObject CreateSlider(string display, string id)
         {
