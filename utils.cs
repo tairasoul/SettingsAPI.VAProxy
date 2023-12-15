@@ -253,6 +253,7 @@ namespace SettingsAPI
                 {
                     Settings.Find(mod.ModId)?.SetActive(false);
                 }
+                PageHeader.GetComponent<Text>().text = "Controls";
             };
             GameObject AudioPage = Settings.Find("AUDIO");
             GameObject Container = Settings.Find("Content/GameObject");
@@ -320,6 +321,7 @@ namespace SettingsAPI
             scroll.viewport = ViewportRect;
             scroll.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.Permanent;
             ContentSizeFitter SizeFitter = Content.AddComponent<ContentSizeFitter>();
+            Content.AddComponent<Image>().color = new Color(1, 1, 1, 0);
             SizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
             SizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
             GridLayoutGroup group = Content.AddComponent<GridLayoutGroup>();
