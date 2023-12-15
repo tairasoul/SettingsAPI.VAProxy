@@ -307,8 +307,8 @@ namespace SettingsAPI
             ViewportRect.sizeDelta = new Vector2(1000, 700);
             GameObject Content = Viewport.AddObject("Content");
             RectTransform contentTransform = Content.AddComponent<RectTransform>();
-            contentTransform.anchoredPosition = new Vector2(-11.8327f, 0.0009f);
-            contentTransform.sizeDelta = new Vector2(300, 575);
+            contentTransform.anchoredPosition = new Vector2(-12, 0);
+            contentTransform.sizeDelta = new Vector2(900, 650);
             scroll.content = contentTransform;
             scroll.inertia = true;
             scroll.horizontal = false;
@@ -320,10 +320,7 @@ namespace SettingsAPI
             scroll.verticalScrollbar = bar;
             scroll.viewport = ViewportRect;
             scroll.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.Permanent;
-            ContentSizeFitter SizeFitter = Content.AddComponent<ContentSizeFitter>();
             Content.AddComponent<Image>().color = new Color(1, 1, 1, 0);
-            SizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
-            SizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
             GridLayoutGroup group = Content.AddComponent<GridLayoutGroup>();
             group.childAlignment = TextAnchor.UpperLeft;
             group.spacing = new Vector2(80, 20);
