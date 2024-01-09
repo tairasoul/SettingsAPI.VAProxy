@@ -53,4 +53,4 @@ If a part of the setup for the functions is not to your liking, you can modify i
 
 ## Example mods
 
-Some examples are [StationTeleport](https://github.com/tairasoul/VAProxy-StationTeleport) and [HitboxVisualiser](https://github.com/tairasoul/VAProxy-HitboxVisualiser).
+Some examples are [StationTeleport](https://github.com/tairasoul/VAProxy-StationTeleport), [HitboxVisualiser](https://github.com/tairasoul/VAProxy-HitboxVisualiser) and [SpeedrunningUtils](https://github.com/tairasoul/VAProxy.SpeedrunningUtils).
