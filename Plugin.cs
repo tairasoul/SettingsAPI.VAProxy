@@ -1,10 +1,12 @@
-﻿using BepInEx;
+﻿using System.Reflection;
+using BepInEx;
 using BepInEx.Logging;
 using UnityEngine;
+using System.IO;
 
 namespace SettingsAPI
 {
-    [BepInPlugin("tairasoul.settingsapi.vaproxy", "SettingsAPI", "1.3.3")]
+    [BepInPlugin("tairasoul.settingsapi.vaproxy", "SettingsAPI", "1.3.4")]
     public class Plugin : BaseUnityPlugin
     {
         public static ManualLogSource Log;
@@ -31,12 +33,18 @@ namespace SettingsAPI
         {
             Init();
         }
+        
+        Stream GetAssets()
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            return assembly.GetManifestResourceStream("SettingsAPI.component.sprites");
+        }
 
         public void Init()
         {
             if (!init)
             {
-                SpriteAssets = AssetBundle.LoadFromFile($"{Paths.PluginPath}/SettingsAPI/component.sprites");
+                SpriteAssets = AssetBundle.LoadFromStream(GetAssets());
                 init = true;
                 RegisteredSettingsButton = new GameObject("ModSettingsAPI");
                 DontDestroyOnLoad(RegisteredSettingsButton);

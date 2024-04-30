@@ -25,7 +25,8 @@ namespace SettingsAPI
                     Plugin.Log.LogInfo("Creating and setting up ModSettings button.");
                     GameObject Button = SettingsUtils.CreateSettingsButton();
                     SettingsUtils.SetupSettingsButton(Button);
-                    GameObject Settings = GameObject.Find("MAINMENU/Canvas/Pages/Setting");
+                    // /Canvas/Pages/Setting
+                    GameObject Settings = GameObject.Find("MAINMENU").Find("Canvas").Find("Pages").Find("Setting");
                     Settings.Find("ModSettingsPage").SetActive(false);
                 }
             };
@@ -73,13 +74,13 @@ namespace SettingsAPI
 
         private void CreateMods()
         {
-            GameObject Settings = GameObject.Find("MAINMENU/Canvas/Pages/Setting");
+            GameObject Settings = GameObject.Find("MAINMENU").Find("Canvas").Find("Pages").Find("Setting");
             Settings.Find("ModSettingsPage").SetActive(false);
             foreach (RawMod mod in Mods.rawMods)
             {
-                GameObject ModSettings = Settings.Find("Content/GameObject/ModSettings");
+                GameObject ModSettings = Settings.Find("Content").Find("GameObject").Find("ModSettings");
                 GameObject ModSetting = ModSettings.Instantiate();
-                GameObject Viewport = Settings.Find("ModSettingsPage/Viewport/Content");
+                GameObject Viewport = Settings.Find("ModSettingsPage").Find("Viewport").Find("Content");
                 ModSetting.SetParent(Viewport, false);
                 LayoutElement element = ModSetting.GetComponent<LayoutElement>();
                 element.preferredHeight = 30f;
@@ -117,7 +118,7 @@ namespace SettingsAPI
 
         private void Update()
         {
-            GameObject Settings = GameObject.Find("MAINMENU/Canvas/Pages/Setting");
+            GameObject Settings = GameObject.Find("MAINMENU").Find("Canvas").Find("Pages").Find("Setting");
             if (NeedCreateMods && currentScene.name != "Intro" && currentScene.name != "Menu" && Settings != null && Settings.Find("ModSettingsPage") != null && Settings.Find("ModSettingsPage/Viewport/Content") != null)
             {
                 NeedCreateMods = false;
@@ -137,7 +138,7 @@ namespace SettingsAPI
 
     internal class Mods
     {
-        public static RawMod[] rawMods = [];
+        public static RawMod[] rawMods = new RawMod[0];
     }
 
     internal struct RawMod

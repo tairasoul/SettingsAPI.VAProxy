@@ -9,6 +9,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 using System.Linq;
+using Font = UnityEngine.Font;
+using Color = UnityEngine.Color;
+using Image = UnityEngine.UI.Image;
 
 namespace SettingsAPI
 {
