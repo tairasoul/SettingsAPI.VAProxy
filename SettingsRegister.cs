@@ -78,6 +78,7 @@ namespace SettingsAPI
             Settings.Find("ModSettingsPage").SetActive(false);
             foreach (RawMod mod in Mods.rawMods)
             {
+                Plugin.Log.LogInfo($"Creating mod {mod.ModId}");
                 GameObject ModSettings = Settings.Find("Content").Find("GameObject").Find("ModSettings");
                 GameObject ModSetting = ModSettings.Instantiate();
                 GameObject Viewport = Settings.Find("ModSettingsPage").Find("Viewport").Find("Content");
@@ -109,6 +110,7 @@ namespace SettingsAPI
                     SettingsUtils.PageHeader.GetComponent<Text>().text = mod.display;
                     ModSettingPage.SetActive(true);
                 });
+                Plugin.Log.LogInfo("Creating mod options");
                 foreach (Option option in mod.options)
                 {
                     option.Create(ModSettingPage);
@@ -118,11 +120,14 @@ namespace SettingsAPI
 
         private void Update()
         {
-            GameObject Settings = GameObject.Find("MAINMENU").Find("Canvas").Find("Pages").Find("Setting");
-            if (NeedCreateMods && currentScene.name != "Intro" && currentScene.name != "Menu" && Settings != null && Settings.Find("ModSettingsPage") != null && Settings.Find("ModSettingsPage/Viewport/Content") != null)
+            if (currentScene.name != "Intro" && currentScene.name != "Menu")
             {
-                NeedCreateMods = false;
-                CreateMods();
+                GameObject Settings = GameObject.Find("MAINMENU").Find("Canvas").Find("Pages").Find("Setting");
+                if (NeedCreateMods && Settings != null && Settings.Find("ModSettingsPage") != null && Settings.Find("ModSettingsPage/Viewport/Content") != null)
+                {
+                    NeedCreateMods = false;
+                    CreateMods();
+                }
             }
         }
     }
