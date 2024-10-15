@@ -1,4 +1,4 @@
-msbuild -p:Configuration=Release
+dotnet build -p:Configuration=Release
 if [[ -d "Releases" ]]; then
     rm Releases/SettingsAPI.dll
 else
