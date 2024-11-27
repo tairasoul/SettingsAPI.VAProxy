@@ -6,7 +6,7 @@ using System.IO;
 
 namespace SettingsAPI
 {
-    [BepInPlugin("tairasoul.settingsapi.vaproxy", "SettingsAPI", "1.3.5")]
+    [BepInPlugin("tairasoul.settingsapi.vaproxy", "SettingsAPI", "1.3.6")]
     public class Plugin : BaseUnityPlugin
     {
         public static ManualLogSource Log;

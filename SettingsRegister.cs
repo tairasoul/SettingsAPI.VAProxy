@@ -40,7 +40,7 @@ namespace SettingsAPI
 		/// <param name="options">Options the mod has.</param> 
 		/// <param name="InitialCreateCallback">Callback used to setup everything needed for the page. Called with the GameObject of the mod page assigned to this mod.</param>
 
-		public void RegisterMod(string ModId, string display, Option[] options, Action<GameObject> InitialCreateCallback)
+		public static void RegisterMod(string ModId, string display, Option[] options, Action<GameObject> InitialCreateCallback)
 		{
 			RawMod mod = new()
 			{
@@ -59,7 +59,7 @@ namespace SettingsAPI
 		/// <param name="display">Text to display to user on mod's button.</param> 
 		/// <param name="options">Options the mod has.</param> 
 
-		public void RegisterMod(string ModId, string display, Option[] options)
+		public static void RegisterMod(string ModId, string display, Option[] options)
 		{
 			RawMod mod = new()
 			{
@@ -75,6 +75,10 @@ namespace SettingsAPI
 		private void CreateMods()
 		{
 			GameObject Settings = GameObject.Find("MAINMENU").Find("Canvas").Find("Pages").Find("Setting");
+			GameObject res = Settings.Find("Content").Find("GameObject").Find("resolution");
+			Button resb = res.GetComponent<Button>();
+			GameObject Game = Settings.Find("Game");
+			resb.onClick.AddListener(() => Game.SetActive(true));
 			Settings.Find("ModSettingsPage").SetActive(false);
 			foreach (RawMod mod in Mods.rawMods)
 			{
@@ -154,7 +158,7 @@ namespace SettingsAPI
 
 	internal class Mods
 	{
-		public static RawMod[] rawMods = new RawMod[0];
+		public static RawMod[] rawMods = [];
 	}
 
 	internal struct RawMod
