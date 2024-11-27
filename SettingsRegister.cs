@@ -78,7 +78,10 @@ namespace SettingsAPI
 			GameObject res = Settings.Find("Content").Find("GameObject").Find("resolution");
 			Button resb = res.GetComponent<Button>();
 			GameObject Game = Settings.Find("Game");
-			resb.onClick.AddListener(() => Game.SetActive(true));
+			resb.onClick.AddListener(() => {
+				Game.SetActive(true);
+				SettingsUtils.PageHeader.GetComponent<Text>().text = "Game";
+			});
 			Settings.Find("ModSettingsPage").SetActive(false);
 			foreach (RawMod mod in Mods.rawMods)
 			{
